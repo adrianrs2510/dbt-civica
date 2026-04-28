@@ -1,0 +1,98 @@
+version: 2
+
+sources:
+
+  - name: postgres # name of the source 
+    schema: postgre_db # this is the schema our raw data lives in
+    database: DB02_BRONZE_DB # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    config:
+      freshness:
+        warn_after: {count: 24, period: hour}
+        error_after: {count: 48, period: hour}
+
+    tables:
+
+      - name: addresses
+        config:
+          loaded_at_field: _FIVETRAN_SYNCED
+        columns:
+          - name: address_id
+          - name: address
+          - name: country
+          - name: state
+          - name: zipcode
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: orderitems
+        config:
+          loaded_at_field: _FIVETRAN_SYNCED
+        columns:
+          - name: order_id
+          - name: product_id
+          - name: quantity
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: orders
+        config:
+          loaded_at_field: _FIVETRAN_SYNCED
+        columns:
+          - name: addresses_id
+          - name: created_id
+          - name: delivered_at
+          - name: estimated_delivery_at
+          - name: order_cost
+          - name: order_id
+          - name: order_total
+          - name: promo_id
+          - name: shipping_cost
+          - name: shipping_service
+          - name: status
+          - name: tracking_id
+          - name: user_id
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: products
+        config:
+          loaded_at_field: _FIVETRAN_SYNCED
+        columns:
+          - name: inventory
+          - name: name
+          - name: price
+          - name: product_id
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: promos
+        config:
+          loaded_at_field: _FIVETRAN_SYNCED
+        columns:
+          - name: discount
+          - name: promo_id
+          - name: status
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: user
+        config:
+          loaded_at_field: _FIVETRAN_SYNCED
+        columns:
+          - name: address_id
+          - name: created_at
+          - name: email
+          - name: first_name
+          - name: last_name
+          - name: phone_number
+          - name: total_orders
+          - name: updated_at
+          - name: user_id
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
