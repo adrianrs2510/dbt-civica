@@ -37,31 +37,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   my_new_project:
-    stg_postgres__addresses:
-      +materialized: table
-      +database: DB02_SILVER_DB
-      +schema: POSTGRE_DB
-    stg_postgres__orderitems:
-      +materialized: table
-      +database: DB02_SILVER_DB
-      +schema: POSTGRE_DB
-    stg_postgres__orders:
-      +materialized: table
-      +database: DB02_SILVER_DB
-      +schema: POSTGRE_DB
-    stg_postgres__products:
-      +materialized: table
-      +database: DB02_SILVER_DB
-      +schema: POSTGRE_DB
-    stg_postgres__promos:
-      +materialized: table
-      +database: DB02_SILVER_DB
-      +schema: POSTGRE_DB
-    stg_postgres__user:
-      +materialized: table
-      +database: DB02_SILVER_DB
-      +schema: POSTGRE_DB
-    stg_google_sheets__budget:
-      +materialized: table
-      +database: DB02_SILVER_DB
-      +schema: GOOGLE_SHEET
+    staging:
+      postgres:
+        +materialized: table
+        +database: DB02_SILVER_DB
+        +schema: POSTGRE_DB
+      google_sheets:
+        +materialized: table
+        +database: DB02_SILVER_DB
+        +schema: GOOGLE_SHEET
