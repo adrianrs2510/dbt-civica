@@ -39,10 +39,15 @@ models:
   my_new_project:
     staging:
       postgres:
-        +materialized: table
+        +materialized: view
         +database: DB02_SILVER_DB
         +schema: POSTGRE_DB
       google_sheets:
-        +materialized: table
+        +materialized: view
         +database: DB02_SILVER_DB
         +schema: GOOGLE_SHEET
+    marts:
+      +materialized: table
+      +database: DB02_GOLD_DB
+      +schema: gold
+

@@ -1,0 +1,112 @@
+version: 2
+
+models:
+    - name: fct_orders
+      description: ""
+      columns:
+        - name: order_id
+          data_type: varchar
+          description: ""
+       
+        - name: shipping_service
+          data_type: varchar
+          description: ""
+       
+        - name: shipping_cost
+          data_type: number
+          description: ""
+       
+        - name: address_country
+          data_type: varchar
+          description: ""
+       
+        - name: order_date
+          data_type: timestamp_ntz
+          description: ""
+       
+        - name: promo_id
+          data_type: varchar
+          description: ""
+       
+        - name: estimated_delivery_at
+          data_type: timestamp_ntz
+          description: ""
+       
+        - name: order_cost
+          data_type: number
+          description: ""
+       
+        - name: user_id
+          data_type: varchar
+          description: ""
+       
+        - name: order_total
+          data_type: number
+          description: ""
+       
+        - name: delivered_at
+          data_type: timestamp_ntz
+          description: ""
+       
+        - name: tracking_id
+          data_type: varchar
+          description: ""
+       
+        - name: status
+          data_type: varchar
+          description: ""
+       
+        - name: _fivetran_deleted
+          data_type: varchar
+          description: ""
+       
+        - name: _fivetran_synced
+          data_type: timestamp_ntz
+          description: ""
+
+semantic_models:
+  - name: orders
+    model: ref('fct_orders')
+    defaults:
+      agg_time_dimension: order_date
+    entities:
+      - name: orders
+        type: primary
+        expr: order_id
+      - name: user
+        type: foreign
+        expr: user_id
+    dimensions:
+      - name: order_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: status
+        type: categorical
+      - name: country
+        type: categorical
+        expr: address_country
+    measures:
+      - name: order_amount
+        agg: sum
+        expr: order_total
+      - name: order_count
+        agg: count
+        expr: order_id
+      - name: distinct_users
+        agg: count_distinct
+        expr: user_id
+
+metrics:
+  - name: total_revenue
+    type: simple
+    type_params:
+      measure: { name: order_amount }
+  - name: total_orders
+    type: simple
+    type_params:
+      measure: { name: order_count }
+  - name: total_unique_buyers
+    type: simple
+    type_params:
+      measure: { name: distinct_users }
