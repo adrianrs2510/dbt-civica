@@ -19,37 +19,67 @@ sources:
     tables:
 
       - name: addresses
+        description: "Tabla de direcciones"
         config:
           loaded_at_field: _FIVETRAN_SYNCED
         columns:
           - name: address_id
+            description: "Id de la direccion"
+            data_tests:
+              - unique
+              - not_null
           - name: address
+            description: "Descripción"
           - name: country
+            description: "Ciudad"
           - name: state
+            description: "Estado"
           - name: zipcode
+            description: "Código postal"
           - name: _fivetran_deleted
+            description: "Fecha en la que se elimina el registro"
           - name: _fivetran_synced
+            description: "Fecha cuando se ha creado la fila"
 
       - name: orderitems
+        description: "Tabla de items de las ordenes"
         config:
           loaded_at_field: _FIVETRAN_SYNCED
         columns:
           - name: order_id
+            description: "Id de la orden"
+            data_tests:
+              - not_null
           - name: product_id
+            description: "Id del producto"
+            data_tests:
+              - not_null
           - name: quantity
+            description: "Cantidad del producto de dicha orden"
           - name: _fivetran_deleted
+            description: "Fecha en la que se elimina el registro"
           - name: _fivetran_synced
+            description: "Fecha cuando se ha creado la fila"
 
       - name: orders
+        description: "Tabla de ordenes"
         config:
           loaded_at_field: _FIVETRAN_SYNCED
         columns:
           - name: addresses_id
-          - name: created_id
+            description: "Id de la dirección"
+            data_tests:
+              - not_null
+          - name: created_at
+            description: "Fecha de creación de la orden"
           - name: delivered_at
+            description: "Fecha de recepcion del paquete"
           - name: estimated_delivery_at
+            description: "Fecha de recepcion estimada del paquete"
           - name: order_cost
+            description: "Coste de la orden"
           - name: order_id
+            description: "Id de la orden"
           - name: order_total
           - name: promo_id
           - name: shipping_cost
@@ -58,7 +88,9 @@ sources:
           - name: tracking_id
           - name: user_id
           - name: _fivetran_deleted
+            description: "Fecha en la que se elimina el registro"
           - name: _fivetran_synced
+            description: "Fecha cuando se ha creado la fila"
 
       - name: products
         config:

@@ -19,18 +19,36 @@ sources:
     tables:
 
       - name: budget
+        description: "Tabla que viene de google sheets de presupuestos"
         config:
           loaded_at_field: _FIVETRAN_SYNCED
         columns:
           - name: _row
+            description: "Número de línea"
+            data_tests:
+              - unique
+              - not_null
           - name: product_id
+            description: "Id del producto"
+            data_tests:
+              - not_null
           - name: quantity
+            description: "Cantidad"
           - name: month
+            description: "Mes de compra"
           - name: _fivetran_synced
+            description: "Fecha cuando se ha creado la fila"
 
       - name: users
+        description: "Tabla de usuarios de google sheet"
         columns:
           - name: Nombre
+            description: "Nombre del usuario"
           - name: DNI
+            description: "DNI del usuario"
+            data_tests:
+              - unique
           - name: email
+            description: "Correo electrónico del usuario"
           - name: fecha_alta_sistema
+            description: "Fecha de alta en el sistema del usuario"
